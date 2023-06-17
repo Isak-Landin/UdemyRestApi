@@ -1,0 +1,39 @@
+{
+  "name": "users",
+  "primaryKey": {
+    "partitionKey": [
+      "username"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "emailaddress",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "username",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "password",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "user-id",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "role",
+      "typeDefinition": "text",
+      "static": false
+    }
+  ]
+}
