@@ -1,0 +1,21 @@
+{
+  "name": "stores",
+  "primaryKey": {
+    "partitionKey": [
+      "store"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "store",
+      "typeDefinition": "text",
+      "static": true
+    },
+
+    {
+      "name": "location",
+      "typeDefinition": "text",
+      "static": false
+    }
+  ]
+}
