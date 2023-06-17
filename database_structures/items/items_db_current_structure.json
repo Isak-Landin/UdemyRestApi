@@ -1,0 +1,39 @@
+{
+  "name": "items",
+  "primaryKey": {
+    "partitionKey": [
+      "store", "category", "id"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "store",
+      "typeDefinition": "text",
+      "static": true
+    },
+
+    {
+      "name": "category",
+      "typeDefinition": "text",
+      "static": true
+    },
+
+    {
+      "name": "id",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "name",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "price",
+      "typeDefinition": "double",
+      "static": false
+    }
+  ]
+}
