@@ -1,0 +1,26 @@
+{
+  "columns": [
+    {
+      "name": "store",
+      "value": "test"
+    },
+    {
+      "name": "category",
+      "value": "test"
+    },
+    {
+      "name": "id",
+      "value": "{0}"
+    },
+
+    {
+      "name": "name",
+      "value": "{0}"
+    },
+
+    {
+      "name": "price",
+      "value": 0
+    }
+  ]
+}
