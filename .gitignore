@@ -152,6 +152,7 @@ database_modules/localconfig.py
 general_testing.py
 
 .idea/
+App_Config/
 
 # PyCharm
 #  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
