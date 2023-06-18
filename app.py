@@ -7,12 +7,14 @@ from flask import Flask, jsonify, request
 from flask_jwt_extended import jwt_required, JWTManager, create_access_token
 
 app = Flask(__name__)
+
 app.config['JWT_SECRET_KEY'] = jwt_secret
 app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
 app.config['JWT_SESSION_COOKIE'] = True
 
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)  # Set the access token expiration to 15 minutes
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  # Set the refresh token expiration to 30 days
+
 jwt = JWTManager(app)
 
 
