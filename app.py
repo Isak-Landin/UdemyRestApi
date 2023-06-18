@@ -1,11 +1,13 @@
 from datetime import timedelta
 
-from flask import Flask, jsonify, request
 from database_modules.get_items import get_items as get_items_func
+from App_Config.app_config import jwt_secret
+
+from flask import Flask, jsonify, request
 from flask_jwt_extended import jwt_required, JWTManager, create_access_token
 
 app = Flask(__name__)
-app.config['JWT_SECRET_KEY'] = 'test'
+app.config['JWT_SECRET_KEY'] = jwt_secret
 app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
 app.config['JWT_SESSION_COOKIE'] = True
 
