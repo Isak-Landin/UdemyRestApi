@@ -1,10 +1,17 @@
 from datetime import timedelta
 
+import contextlib
+
 from database_modules.get_items import get_items as get_items_func
 from App_Config.app_config import jwt_secret
 
 from flask import Flask, jsonify, request
-from flask_jwt_extended import jwt_required, JWTManager, create_access_token
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+from flask_jwt_extended import set_access_cookies
+from flask_jwt_extended import unset_jwt_cookies
 
 app = Flask(__name__)
 
@@ -20,18 +27,35 @@ jwt = JWTManager(app)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    client_request = request
+    client_headers = client_request.headers
 
-    def is_valid(_username, _password):
-        return False
+    try:
+        with contextlib.suppress(AttributeError):
+            client_data = client_request.json
+
+    except AttributeError:
+        client_data = None
+
+    def login_with_cookies(_username, _password, header, json=None):
+        return True
+
+    def login_without_cookies(_username, _password, header, json=None):
+        def is_valid_credentials(__username, __password):
+            return True
+
+        # Create logic that fits with JWTManager and Session
+        if is_valid_credentials(__username=_username, __password=_password):
+            access_token = create_access_token(identity=_username)
+        else:
+            access_token = None
+
+        return access_token
 
     client_request = request.json
 
     username = client_request.get('username')
     password = client_request.get('password')
-
-    if is_valid(_username=username, _password=password):
-        access_token = create_access_token(identity=username)
-        return jsonify(access_token=access_token), 200
 
     return jsonify(message='Invalid credentials'), 401
 
