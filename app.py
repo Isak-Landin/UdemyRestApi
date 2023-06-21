@@ -2,10 +2,11 @@ from datetime import timedelta
 
 import contextlib
 
-from database_modules.get_items import get_items as get_items_func
+from database_modules.get_items_api_connect import get_items as get_items_func
 from App_Config.app_config import jwt_secret
+from server_stability import ServerStatus
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
@@ -24,6 +25,11 @@ app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  # Set the refresh 
 
 jwt = JWTManager(app)
 
+
+@app.before_request
+def is_server_stable():
+    if not ServerStatus.is_stable():
+        abort(500)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
