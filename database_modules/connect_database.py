@@ -54,14 +54,6 @@ class DataStaxConnection:
             else:
                 raise ConnectionFaulty(self) from e
 
-    def retrieve_all_items_in_store(self, store: str):
-        if self.session:
-            self.session.execute()
-        elif self.session is None and self.cluster:
-            self.session = self.cluster.connect()
-        else:
-            raise ConnectionFaulty(self)
-
 
 class ConnectionFaulty(Exception):
     def __init__(self, instanced_datastax_object: DataStaxConnection):
