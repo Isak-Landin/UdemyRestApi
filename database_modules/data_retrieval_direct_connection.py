@@ -17,9 +17,13 @@ class DatastaxDataRetrieval:
                 self.connection_object.session = self.connection_object.cluster.connect()
                 item_rows = self.connection_object.session.execute(query)
             else:
+                print('Raising exception')
                 raise ConnectionFaulty(self.connection_object)
         except Exception as e:
             raise ConnectionFaulty(self.connection_object) from e
+
+        if item_rows:
+            return item_rows
 
     def retrieve_all_items_in_store(self, store: str):
         query = f'SELECT * FROM {keyspace}.{table_items} WHERE store = {store}'
@@ -35,3 +39,9 @@ class DatastaxDataRetrieval:
                 raise ConnectionFaulty(self.connection_object)
         except Exception as e:
             raise ConnectionFaulty(self.connection_object) from e
+
+        if item_rows:
+            return item_rows
+
+    def convert_cassandra_row_to_json(self, cassandra_rows):
+        pass
