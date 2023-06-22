@@ -7,7 +7,7 @@ import cassandra
 from pathlib import Path
 
 from App_Config.app_config import client_secret, client_id
-from localconfig import table_users, table_items, table_stores, keyspace
+from database_modules.localconfig import table_users, table_items, table_stores, keyspace
 from server_stability import ServerStatus
 
 
@@ -20,6 +20,8 @@ class DataStaxConnection:
         self.table_stores: str = table_stores
         self.table_items: str = table_items
 
+        self.start_up()
+
     def start_up(self):
         self.initialize_connection()
 
@@ -29,7 +31,7 @@ class DataStaxConnection:
     def initialize_connection(self, reboot=False):
         try:
             my_path = Path().resolve()
-            path_of_secure_zip = str(my_path.parent) + '\\' + 'App_Config\\secure-connect-udemy.zip'
+            path_of_secure_zip = str(my_path) + '\\' + 'App_Config\\secure-connect-udemy.zip'
             cloud_config = {
                 'secure_connect_bundle': path_of_secure_zip
             }
