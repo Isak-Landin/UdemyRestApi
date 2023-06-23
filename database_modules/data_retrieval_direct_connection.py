@@ -111,13 +111,30 @@ class DatastaxDataRetrieval:
                     return columns
 
             _columns = get_columns()
+            if _columns:
+                _columns_max_index = len(_columns) - 1
 
             dict_key_values_from_row_or_cluster = {}
 
-            if cluster and not single_row:
-                pass
-            elif single_row and not cluster:
+            if cluster and not single_row and _columns:
+                int_key = 1
+
+                for row in cluster:
+                    row_dict = {}
+                    for string in _columns:
+                        row_dict.clear()
+                        column_dict = {
+                            string: row.getattr(row, string)
+                        }
+
+                        row_dict = {**row_dict, **column_dict}
+
+                    dict_key_values_from_row_or_cluster[int_key] = row_dict
+                    int_key += 1
+            elif single_row and not cluster and _columns:
                 pass
             else:
                 pass
+
+            return dict_key_values_from_row_or_cluster
 
