@@ -120,21 +120,15 @@ class DatastaxDataRetrieval:
                 int_key = 1
 
                 for row in cluster:
-                    row_dict = {}
-                    for string in _columns:
-                        row_dict.clear()
-                        column_dict = {
-                            string: row.getattr(row, string)
-                        }
+                    row_as_dict = row._asdict()
 
-                        row_dict = {**row_dict, **column_dict}
-
-                    dict_key_values_from_row_or_cluster[int_key] = row_dict
-                    int_key += 1
+                    dict_key_values_from_row_or_cluster = {**dict_key_values_from_row_or_cluster, **row_as_dict}
             elif single_row and not cluster and _columns:
-                pass
+                row_as_dict = single_row._asdict()
             else:
                 pass
 
             return dict_key_values_from_row_or_cluster
+
+        return convert_to_json()
 
