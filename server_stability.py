@@ -6,12 +6,6 @@ class ServerStatus:
     }
 
     @classmethod
-    def is_stable(cls):
-        all_pairs = cls.module_statuses.items()
-        print(all_pairs)
-        return all_pairs
-
-    @classmethod
     def datastax_connection_set_unstable(cls):
         cls.module_statuses['datastax-connection'] = False
 
@@ -28,6 +22,3 @@ class ServerStatus:
         key_value_pairs = cls.module_statuses.items()
 
         return all(value for key, value in key_value_pairs)
-
-
-all_pairs_retrieved = ServerStatus.is_stable()
