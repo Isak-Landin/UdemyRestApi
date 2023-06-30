@@ -28,8 +28,9 @@ jwt = JWTManager(app)
 
 @app.before_request
 def is_server_stable():
-    if not ServerStatus.is_stable():
+    if not ServerStatus.is_server_stable():
         abort(500)
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
