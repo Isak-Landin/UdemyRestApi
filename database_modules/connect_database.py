@@ -39,22 +39,23 @@ class DataStaxConnection:
             auth_provider = PlainTextAuthProvider(client_id, client_secret)
             self.cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
             if not self.cluster:
-                raise ConnectionFaulty(self)
+                raise ConnectionFaulty
+
             try:
                 self.session = self.cluster.connect()
                 if self.session is None or self.cluster is None:
                     raise DriverException()
-            except (DriverException, Exception) as e:
-                if reboot:
-                    ServerStatus.datastax_connection_set_unstable()
-                else:
+            except (DriverException, ConnectionFaulty, Exception) as e:
+                if not reboot:
                     raise ConnectionFaulty(self) from e
+                ServerStatus.datastax_connection_set_unstable()
+                return
         except (DriverException, ConnectionError) as e:
             self.session = None
-            if reboot:
-                ServerStatus.datastax_connection_set_unstable()
-            else:
+            if not reboot:
                 raise ConnectionFaulty(self) from e
+            ServerStatus.datastax_connection_set_unstable()
+            return
 
 
 class ConnectionFaulty(Exception):
