@@ -1,10 +1,8 @@
 import requests
-from database_modules.localconfig import astra_id, admin_headers
+from database_modules.localconfig import astra_id, admin_headers, table_items, keyspace
 from flask import make_response, Response
 
-
-keyspace = 'restapi'
-table = 'items'
+table = table_items
 
 
 def get_item(store, category, uuid):
