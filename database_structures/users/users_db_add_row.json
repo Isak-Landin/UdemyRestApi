@@ -1,0 +1,26 @@
+{
+  "columns": [
+    {
+      "name": "emailaddress",
+      "value": "test@gmail.com"
+    },
+    {
+      "name": "username",
+      "value": "test"
+    },
+    {
+      "name": "password",
+      "value": "{0}"
+    },
+
+    {
+      "name": "user-id",
+      "value": "{0}"
+    },
+
+    {
+      "name": "role",
+      "value": 0
+    }
+  ]
+}
