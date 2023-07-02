@@ -1,12 +1,12 @@
 {
   "columns": [
     {
-      "name": "emailaddress",
-      "value": "test@gmail.com"
-    },
-    {
       "name": "username",
       "value": "test"
+    },
+    {
+      "name": "emailaddress",
+      "value": "test@gmail.com"
     },
     {
       "name": "password",
