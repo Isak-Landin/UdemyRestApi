@@ -51,8 +51,6 @@ def login():
     def login_without_cookies(_username, _password, headers=None, json=None):
         is_valid_user = validate_user(username=str(_username), password=str(_password))
 
-        print('User validity: ', is_valid_user)
-
         # Create logic that fits with JWTManager and Session
         if is_valid_user:
             __access_token = create_access_token(identity=_username)
@@ -65,14 +63,10 @@ def login():
 
     username = request_content_as_json.get('username')
     password = request_content_as_json.get('password')
-    print(username, password)
     access = request_headers_as_dict.get('Authorization')
 
     if username and password:
-        print('Username and password exists')
         access_token, refresh_token = login_without_cookies(_username=username, _password=password)
-        print('My access-token: ', access_token)
-        print('My refresh-token: ', refresh_token)
         if access_token and refresh_token:
             response = jsonify(access_token=access_token, refresh_token=refresh_token)
             response.status_code = 200
