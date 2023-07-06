@@ -9,6 +9,3 @@ from flask import make_response, Response
 def get_user_and_password(username):
     url = f'https://{astra_id}-europe-west1.apps.astra.datastax.com/api/rest/v2/keyspaces/{keyspace}/{table_users}/{username}?fields=username%2C%20password'
     return requests.get(url, headers=admin_headers)
-
-
-print(response_decoder(get_user_and_password('user4'))['data'][0])
