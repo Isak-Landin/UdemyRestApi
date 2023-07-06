@@ -2,12 +2,14 @@ from datetime import timedelta
 
 import contextlib
 
+import flask
+
 from database_modules.get_items_api_connect import get_items as get_items_func
 from App_Config.app_config import jwt_secret
 from server_stability import ServerStatus
 from database_modules.validate_user import is_correct_password, is_user_exist_in_response, validate_user
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, Response
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
@@ -43,13 +45,16 @@ def login():
     print(request_content_as_data)"""
     request_headers_as_dict = dict(request.headers)
     content_type = request_headers_as_dict.get('Content-Type')
-    authorization = request_headers_as_dict.get('Authorization')
+
+    response = flask.Response()
 
     def login_with_cookies(_username, _password, headers, json=None):
         return False
 
     def login_without_cookies(_username, _password, headers=None, json=None):
-        is_valid_user = validate_user(username=_username, password=_password)
+        is_valid_user = validate_user(username=str(_username), password=str(_password))
+
+        print('User validity: ', is_valid_user)
 
         # Create logic that fits with JWTManager and Session
         if is_valid_user:
@@ -61,11 +66,20 @@ def login():
 
     username = request_content_as_json.get('username')
     password = request_content_as_json.get('password')
+    print(username, password)
     access = request_headers_as_dict.get('Authorization')
 
-    if username and password and not access:
-        if login_without_cookies(_username=username, _password=password):
-            return jsonify()
+    if username and password:
+        print('Username and password exists')
+        access_token = login_without_cookies(_username=username, _password=password)
+        print('My access-token', access_token)
+        if access_token:
+            response = jsonify(access_token=access_token)
+            response.status_code = 200
+            response.headers['Content-Type'] = 'application/json'
+            response.headers['Custom-Header'] = 'Some value'
+
+            return response
     elif access:
         login_with_cookies()
     else:
