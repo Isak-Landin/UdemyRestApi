@@ -34,6 +34,11 @@
       "name": "role",
       "typeDefinition": "text",
       "static": false
+    },
+    {
+      "name": "salt",
+      "typeDefinition": "text",
+      "static": false
     }
   ]
 }
