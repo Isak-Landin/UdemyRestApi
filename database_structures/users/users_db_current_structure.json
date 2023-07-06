@@ -15,7 +15,7 @@
     {
       "name": "username",
       "typeDefinition": "text",
-      "static": false
+      "static": true
     },
 
     {
