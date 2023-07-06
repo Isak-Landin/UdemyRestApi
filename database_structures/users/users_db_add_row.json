@@ -19,6 +19,11 @@
     },
 
     {
+      "name": "salt",
+      "value": "{0}"
+    },
+
+    {
       "name": "role",
       "value": 0
     }
