@@ -58,19 +58,33 @@ def is_correct_password(input_username: str, input_password: str, response: requ
 
         return ''
 
-    def bcrypt_match_passwords(stripped_response_password: str):
-        if not bool(stripped_response_password):
+    def strip_salt():
+        if decoded_data:
+            salt = decoded_data.get('salt')
+            if salt:
+                return salt
+
+        return ''
+
+    def bcrypt_match_passwords(stripped_response_password: str, stripped_response_salt: str):
+        if not bool(stripped_response_password) or not bool(stripped_response_salt):
             return False
 
         print('Passes bcrypt methods return check')
+
+        print('Stripped salt: ', stripped_response_salt)
+        print('Input password: ', input_password)
+        print('Hashed stripped password: ', stripped_response_password)
         is_valid_password = bcrypt.checkpw(input_password.encode(), stripped_response_password.encode())
 
         print('Password validity: ', is_valid_password)
         return is_valid_password
 
     stripped_password = strip_password()
+    stripped_salt = strip_salt()
     print('Stripped password: ', stripped_password)
+    print('Stripped salt: ', stripped_salt)
     if strip_username() == input_username:
-        return bcrypt_match_passwords(stripped_response_password=stripped_password)
+        return bcrypt_match_passwords(stripped_response_password=stripped_password, stripped_response_salt=stripped_salt)
 
     return False
