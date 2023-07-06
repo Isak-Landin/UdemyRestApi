@@ -41,10 +41,12 @@ except (FileNotFoundError, FileExistsError) as e:
 if data:
     for i in range(10, 50):
 
-        password = bcrypt.hashpw(f'password{i}'.encode(), salt=bcrypt.gensalt())
+        salt = bcrypt.gensalt()
+
+        password = bcrypt.hashpw(f'password{i}'.encode(), salt=salt)
         print(password.decode())
         print(type(password))
-        body = format_and_change_values(data, f'user{i}', f'email{i}@gmail.com', password.decode(), f'{i}', 0)
+        body = format_and_change_values(data, f'user{i}', f'email{i}@gmail.com', password.decode(), f'{i}', salt.decode(), 0)
 
         print(body)
 
