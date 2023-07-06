@@ -1,6 +1,13 @@
 # RestApiUdemy
  Proof of work
 
+# Routes
+
+### /login
+### /items
+### /item
+
+
 ## Guide partially followed
 https://www.udemy.com/course/rest-api-flask-and-python/learn/lecture/33781648#overview
 
