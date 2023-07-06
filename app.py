@@ -11,7 +11,7 @@ from database_modules.validate_user import is_correct_password, is_user_exist_in
 
 from flask import Flask, jsonify, request, abort, Response
 
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import set_access_cookies
@@ -55,11 +55,13 @@ def login():
 
         # Create logic that fits with JWTManager and Session
         if is_valid_user:
-            access_token = create_access_token(identity=_username)
+            __access_token = create_access_token(identity=_username)
+            __refresh_token = create_refresh_token(identity=_username)
         else:
-            access_token = None
+            __access_token = None
+            __refresh_token = None
 
-        return access_token
+        return __access_token, __refresh_token
 
     username = request_content_as_json.get('username')
     password = request_content_as_json.get('password')
@@ -68,10 +70,11 @@ def login():
 
     if username and password:
         print('Username and password exists')
-        access_token = login_without_cookies(_username=username, _password=password)
-        print('My access-token', access_token)
-        if access_token:
-            response = jsonify(access_token=access_token)
+        access_token, refresh_token = login_without_cookies(_username=username, _password=password)
+        print('My access-token: ', access_token)
+        print('My refresh-token: ', refresh_token)
+        if access_token and refresh_token:
+            response = jsonify(access_token=access_token, refresh_token=refresh_token)
             response.status_code = 200
             response.headers['Content-Type'] = 'application/json'
             response.headers['Custom-Header'] = 'Some value'
