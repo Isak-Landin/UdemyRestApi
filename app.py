@@ -40,9 +40,6 @@ def login():
     if request.method == 'GET':
         return abort(401)
     request_content_as_json: dict = request.get_json()
-    """request_content_as_data = request.get_data()
-    print(request_content_as_json)
-    print(request_content_as_data)"""
     request_headers_as_dict = dict(request.headers)
     content_type = request_headers_as_dict.get('Content-Type')
 
