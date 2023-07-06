@@ -29,6 +29,7 @@ def get_data_in_dict(decoded_dict: dict):
     except IndexError:
         print('data', data)
 
+    print('Data contents for db request: ', data)
     return data
 
 
