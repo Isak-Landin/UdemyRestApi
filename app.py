@@ -5,6 +5,7 @@ import contextlib
 from database_modules.get_items_api_connect import get_items as get_items_func
 from App_Config.app_config import jwt_secret
 from server_stability import ServerStatus
+from database_modules.validate_user import is_correct_password, is_user_exist_in_response, validate_user
 
 from flask import Flask, jsonify, request, abort
 
@@ -34,35 +35,41 @@ def is_server_stable():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    client_request = request
-    client_headers = client_request.headers
+    if request.method == 'GET':
+        return abort(401)
+    request_content_as_json: dict = request.get_json()
+    """request_content_as_data = request.get_data()
+    print(request_content_as_json)
+    print(request_content_as_data)"""
+    request_headers_as_dict = dict(request.headers)
+    content_type = request_headers_as_dict.get('Content-Type')
+    authorization = request_headers_as_dict.get('Authorization')
 
-    try:
-        with contextlib.suppress(AttributeError):
-            client_data = client_request.json
+    def login_with_cookies(_username, _password, headers, json=None):
+        return False
 
-    except AttributeError:
-        client_data = None
-
-    def login_with_cookies(_username, _password, header, json=None):
-        return True
-
-    def login_without_cookies(_username, _password, header, json=None):
-        def is_valid_credentials(__username, __password):
-            return True
+    def login_without_cookies(_username, _password, headers=None, json=None):
+        is_valid_user = validate_user(username=_username, password=_password)
 
         # Create logic that fits with JWTManager and Session
-        if is_valid_credentials(__username=_username, __password=_password):
+        if is_valid_user:
             access_token = create_access_token(identity=_username)
         else:
             access_token = None
 
         return access_token
 
-    client_request = request.json
+    username = request_content_as_json.get('username')
+    password = request_content_as_json.get('password')
+    access = request_headers_as_dict.get('Authorization')
 
-    username = client_request.get('username')
-    password = client_request.get('password')
+    if username and password and not access:
+        if login_without_cookies(_username=username, _password=password):
+            return jsonify()
+    elif access:
+        login_with_cookies()
+    else:
+        return jsonify({'msg': 'Invalid or no credentials'})
 
     return jsonify(message='Invalid credentials'), 401
 
