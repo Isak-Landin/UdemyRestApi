@@ -11,12 +11,9 @@ import contextlib
 
 def validate_user(username: str, password: str) -> bool:
     get_user_response = get_user_and_password(username=username)
-    print('Username, password retrieved from client-request: ', username, password)
-    print('Database values for the client request: ', get_user_response, get_user_response.content)
 
     if isinstance(get_user_response, requests.Response) and \
             is_user_exist_in_response(get_user_response=get_user_response):
-        print('Is request.Response, is user exists in db response')
         return is_correct_password(input_username=username, input_password=password, response=get_user_response)
 
     return False
@@ -70,20 +67,11 @@ def is_correct_password(input_username: str, input_password: str, response: requ
         if not bool(stripped_response_password) or not bool(stripped_response_salt):
             return False
 
-        print('Passes bcrypt methods return check')
-
-        print('Stripped salt: ', stripped_response_salt)
-        print('Input password: ', input_password)
-        print('Hashed stripped password: ', stripped_response_password)
         is_valid_password = bcrypt.checkpw(input_password.encode(), stripped_response_password.encode())
-
-        print('Password validity: ', is_valid_password)
         return is_valid_password
 
     stripped_password = strip_password()
     stripped_salt = strip_salt()
-    print('Stripped password: ', stripped_password)
-    print('Stripped salt: ', stripped_salt)
     if strip_username() == input_username:
         return bcrypt_match_passwords(stripped_response_password=stripped_password, stripped_response_salt=stripped_salt)
 
