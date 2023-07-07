@@ -4,12 +4,11 @@
 # Routes
 
 ### /login
+#### Request in json:
 ```json
 {
-  "key": "value",
-  "nested": {
-    "nestedKey": "nestedValue"
-  }
+  "username": "value",
+  "password": "plainText"
 }
 ```
 
