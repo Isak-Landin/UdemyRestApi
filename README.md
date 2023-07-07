@@ -7,15 +7,15 @@
 #### Request, json:
 ```json
 {
-  "username": "value",
+  "username": "plainText",
   "password": "plainText"
 }
 ```
 #### Response, json
 ```json
 {
-  "access-token": "value",
-  "refresh-token": "plainText"
+  "access-token": "<token>",
+  "refresh-token": "<token>"
 }
 ```
 
