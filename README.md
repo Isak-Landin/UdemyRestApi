@@ -5,6 +5,7 @@
 
 ### /login
 #### Request, json:
+##### body:
 ```json
 {
   "username": "plainText",
@@ -12,6 +13,7 @@
 }
 ```
 #### Response, json
+##### body:
 ```json
 {
   "access-token": "<token>",
@@ -20,6 +22,19 @@
 ```
 
 ### /items
+#### Request, json
+##### headers:
+```json
+{
+    "Authorization": "Bearer <token>"
+}
+```
+##### body:
+```json
+{
+    "store": "plainText"
+}
+```
 ### /item
 
 
