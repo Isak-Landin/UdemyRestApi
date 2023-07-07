@@ -4,14 +4,20 @@
 # Routes
 
 ### /login
-#### Request in json:
+#### Request, json:
 ```json
 {
   "username": "value",
   "password": "plainText"
 }
 ```
-
+#### Response, json
+```json
+{
+  "access-token": "value",
+  "refresh-token": "plainText"
+}
+```
 
 ### /items
 ### /item
