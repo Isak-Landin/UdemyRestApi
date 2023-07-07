@@ -21,7 +21,7 @@
 }
 ```
 
-### /items
+### /items - jwt required
 #### Request, json
 ##### headers:
 ```json
@@ -35,7 +35,7 @@
     "store": "plainText"
 }
 ```
-### /item
+### /item - jwt required
 
 
 ## Guide partially followed
