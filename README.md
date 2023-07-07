@@ -4,10 +4,13 @@
 # Routes
 
 ### /login
-> '@app.route("/login_without_cookies", methods=["POST"])
-def login_without_cookies():
-    access_token = create_access_token(identity="example_user")
-    return jsonify(access_token=access_token)'
+> ```json
+{
+  "key": "value",
+  "nested": {
+    "nestedKey": "nestedValue"
+  }
+}```
 
 ### /items
 ### /item
