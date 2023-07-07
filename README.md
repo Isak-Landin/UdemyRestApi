@@ -5,12 +5,12 @@
 
 ### /login
 > ```json
-{
+`{
   "key": "value",
   "nested": {
     "nestedKey": "nestedValue"
   }
-}```
+}`
 
 ### /items
 ### /item
