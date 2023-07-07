@@ -4,13 +4,15 @@
 # Routes
 
 ### /login
-> ```json
-`{
+```json
+{
   "key": "value",
   "nested": {
     "nestedKey": "nestedValue"
   }
-}`
+}
+```
+
 
 ### /items
 ### /item
