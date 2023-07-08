@@ -7,13 +7,14 @@ import flask
 from database_modules.get_items_api_connect import get_items as get_items_func
 from App_Config.app_config import jwt_secret
 from server_stability import ServerStatus
-from database_modules.validate_user import is_correct_password, is_user_exist_in_response, validate_user
+from database_modules.validate_user import validate_user
 
 from flask import Flask, jsonify, request, abort, Response
 
 from flask_jwt_extended import create_access_token, create_refresh_token
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 from flask_jwt_extended import JWTManager
+from flask_jwt_extended.view_decorators import _verify_token_is_fresh
 from flask_jwt_extended import set_access_cookies
 from flask_jwt_extended import unset_jwt_cookies
 
@@ -69,9 +70,9 @@ def login():
         access_token, refresh_token = login_without_cookies(_username=username, _password=password)
         if access_token and refresh_token:
             response = jsonify(access_token=access_token, refresh_token=refresh_token)
+            response.json['access-token'] = access_token
             response.status_code = 200
             response.headers['Content-Type'] = 'application/json'
-            response.headers['Custom-Header'] = 'Some value'
 
             return response
     elif access:
