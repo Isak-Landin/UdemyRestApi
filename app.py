@@ -14,7 +14,6 @@ from flask import Flask, jsonify, request, abort, Response
 from flask_jwt_extended import create_access_token, create_refresh_token
 from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 from flask_jwt_extended import JWTManager
-from flask_jwt_extended.view_decorators import _verify_token_is_fresh
 from flask_jwt_extended import set_access_cookies
 from flask_jwt_extended import unset_jwt_cookies
 
@@ -36,7 +35,7 @@ def is_server_stable():
         abort(500)
 
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST'])
 def login():
     if request.method == 'GET':
         return abort(401)
@@ -70,7 +69,6 @@ def login():
         access_token, refresh_token = login_without_cookies(_username=username, _password=password)
         if access_token and refresh_token:
             response = jsonify(access_token=access_token, refresh_token=refresh_token)
-            response.json['access-token'] = access_token
             response.status_code = 200
             response.headers['Content-Type'] = 'application/json'
 
@@ -105,3 +103,7 @@ def get_store():
 @jwt_required()
 def get_stores():
     return {'State': 'Work in progress'}
+
+@app.route('/refresh', methods=['POST', 'GET'])
+@jwt_required(refresh=True)
+def refresh():
