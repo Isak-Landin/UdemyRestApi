@@ -9,7 +9,7 @@ import json
 import contextlib
 
 
-def validate_user(username: str, password: str) -> bool:
+def validate_user_login(username: str, password: str) -> bool:
     get_user_response = get_user_and_password(username=username)
 
     if isinstance(get_user_response, requests.Response) and \
