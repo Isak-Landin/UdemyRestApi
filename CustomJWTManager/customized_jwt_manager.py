@@ -20,13 +20,17 @@ class TokenManager:
                 'JWT_TOKEN_LOCATION': ['headers', 'cookies'],
                 'JWT_SESSION_COOKIE': True,
                 'JWT_ACCESS_TOKEN_EXPIRES': timedelta(minutes=15),
-                'JWT_REFRESH_TOKEN_EXPIRES': timedelta(days=30)
+                'JWT_REFRESH_TOKEN_EXPIRES': timedelta(days=30),
+                'JWT_BLACKLIST_ENABLED': True,
+                'JWT_BLACKLIST_TOKEN_CHECKS': ['access', 'refresh']
             }
 
         self.initialize_jwt_manager_on_startup()
+        self.bind_app_to_jwt_manager()
+        self.bind_jwt_manager_configurations_to_app()
 
-    def bind_app_to_jwt_manager(self, app_to_bind: flask.app.Flask):
-        self.jwt_manager.init_app(app_to_bind)
+    def bind_app_to_jwt_manager(self):
+        self.jwt_manager.init_app(self.bound_app)
 
     def bind_jwt_manager_configurations_to_app(self):
         """
@@ -37,6 +41,8 @@ class TokenManager:
         app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)  # Set the access token expiration to 15 minutes
         app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
         # Set the refresh token expiration to 30 days
+        app.config['JWT_BLACKLIST_ENABLED'] = True
+        app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
         """
         for key, value in self.jwt_manager_configuration.items():
             self.bound_app.config[key] = value
@@ -44,7 +50,6 @@ class TokenManager:
     def initialize_jwt_manager_on_startup(self):
         self.jwt_manager = JWTManager()
 
-    @staticmethod
-    def refresh_refresh_token(refresh_token):
-        pass
+    def get_jwt_manager(self):
+        return self.jwt_manager
 
