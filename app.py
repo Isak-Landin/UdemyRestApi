@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from App_Config.app_config import jwt_secret
+
 from server_stability import ServerStatus
 
 from flask import Flask, abort
@@ -22,12 +22,6 @@ def create_app():
 
 app = create_app()
 
-app.config['JWT_SECRET_KEY'] = jwt_secret
-app.config['JWT_TOKEN_LOCATION'] = ['headers', 'cookies']
-app.config['JWT_SESSION_COOKIE'] = True
-
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=15)  # Set the access token expiration to 15 minutes
-app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  # Set the refresh token expiration to 30 days
 
 jwt = JWTManager(app)
 
