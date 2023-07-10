@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request, abort, Response
 from flask_jwt_extended import create_refresh_token, create_access_token
 from flask_jwt_extended import jwt_required
 
-from validate_user import validate_user
+from validate_user import validate_user_login
 
 
 auth_blueprint = Blueprint('auth', __name__)
@@ -22,7 +22,7 @@ def login():
         return False
 
     def login_without_cookies(_username, _password, headers=None, json=None):
-        is_valid_user = validate_user(username=str(_username), password=str(_password))
+        is_valid_user = validate_user_login(username=str(_username), password=str(_password))
 
         # Create logic that fits with JWTManager and Session
         if is_valid_user:
