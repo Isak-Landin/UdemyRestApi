@@ -1,0 +1,15 @@
+{
+  "name": "blacklistedtokens",
+  "primaryKey": {
+    "partitionKey": [
+      "token"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "token",
+      "typeDefinition": "text",
+      "static": true
+    }
+  ]
+}
