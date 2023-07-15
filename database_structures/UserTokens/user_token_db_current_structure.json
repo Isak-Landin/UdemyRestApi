@@ -1,0 +1,33 @@
+{
+  "name": "usertokens",
+  "primaryKey": {
+    "partitionKey": [
+      "username"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "username",
+      "typeDefinition": "text",
+      "static": true
+    },
+
+    {
+      "name": "accesstoken",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "refreshtoken",
+      "typeDefinition": "text",
+      "static": false
+    },
+
+    {
+      "name": "salt",
+      "typeDefinition": "text",
+      "static": false
+    }
+  ]
+}
