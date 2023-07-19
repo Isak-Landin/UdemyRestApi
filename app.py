@@ -6,6 +6,7 @@ from server_stability import ServerStatus
 from flask import Flask, abort
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from JWTManagement.customized_jwt_manager import CustomJWTManager
 
 from views.auth.routes import auth_blueprint as auth_bp
 from views.items.routes import items_blueprint as items_bp
@@ -23,7 +24,7 @@ def create_app():
 app = create_app()
 
 
-jwt = JWTManager(app)
+jwt = CustomJWTManager(app)
 
 
 @app.before_request

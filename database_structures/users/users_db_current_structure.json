@@ -39,6 +39,17 @@
       "name": "salt",
       "typeDefinition": "text",
       "static": false
+    },
+
+    {
+      "name": "createdat",
+      "typeDefinition": "timestamp",
+      "static": false
+    },
+    {
+      "name": "lastlogin",
+      "typeDefinition": "timestamp",
+      "static": false
     }
   ]
 }

@@ -9,7 +9,7 @@ import flask
 from App_Config.app_config import jwt_secret
 
 
-class TokenManager:
+class CustomJWTManager:
     def __init__(self, app_to_bind: flask.app.Flask):
         self.jwt_manager: JWTManager = None
         self.bound_app: flask.app.Flask = app_to_bind

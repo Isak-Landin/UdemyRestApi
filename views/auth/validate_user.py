@@ -63,7 +63,7 @@ def is_correct_password(input_username: str, input_password: str, response: requ
 
         return ''
 
-    def bcrypt_match_passwords(stripped_response_password: str, stripped_response_salt: str):
+    def match_passwords_bcrypt(stripped_response_password: str, stripped_response_salt: str):
         if not bool(stripped_response_password) or not bool(stripped_response_salt):
             return False
 
@@ -73,6 +73,6 @@ def is_correct_password(input_username: str, input_password: str, response: requ
     stripped_password = strip_password()
     stripped_salt = strip_salt()
     if strip_username() == input_username:
-        return bcrypt_match_passwords(stripped_response_password=stripped_password, stripped_response_salt=stripped_salt)
+        return match_passwords_bcrypt(stripped_response_password=stripped_password, stripped_response_salt=stripped_salt)
 
     return False

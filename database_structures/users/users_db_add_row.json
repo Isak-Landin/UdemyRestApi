@@ -26,6 +26,16 @@
     {
       "name": "role",
       "value": 0
+    },
+
+    {
+      "name": "createdat",
+      "value": 0
+    },
+
+    {
+      "name": "lastlogin",
+      "value": 0
     }
   ]
 }
