@@ -4,8 +4,6 @@ from datetime import timedelta
 from server_stability import ServerStatus
 
 from flask import Flask, abort
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
 from JWTManagement.customized_jwt_manager import CustomJWTManager
 
 from views.auth.routes import auth_blueprint as auth_bp
@@ -23,8 +21,7 @@ def create_app():
 
 app = create_app()
 
-
-jwt = CustomJWTManager(app)
+jwt_manager = CustomJWTManager(app)
 
 
 @app.before_request
