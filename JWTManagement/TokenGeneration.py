@@ -35,8 +35,13 @@ class Tokens:
     def validate_user_login(username: str, password: str) -> bool:
         get_user_response = get_user_and_password(username=username)
         if isinstance(get_user_response, requests.Response) and \
-                Tokens._is_user_exist_in_response_internal(get_user_response=get_user_response):
-            return Tokens._is_correct_password_internal(input_username=username, input_password=password, response=get_user_response)
+                Tokens._is_user_exist_in_response_internal(
+                    get_user_response=get_user_response
+                ):
+            return Tokens._is_correct_password_internal(
+                input_username=username,
+                input_password=password,
+                response=get_user_response)
         return False
 
     @staticmethod
