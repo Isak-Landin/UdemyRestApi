@@ -10,3 +10,4 @@ def handle_exceptions(function):
         except (AttributeError, IndexError) as e:
             error_response ={'error': str(e)}
             return jsonify(error_response), 500
+    return general_exception_message_event
