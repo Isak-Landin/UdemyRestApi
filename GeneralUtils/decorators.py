@@ -1,5 +1,6 @@
 from functools import wraps
 from flask import jsonify
+from flask import Response
 
 
 def handle_exceptions(function):
