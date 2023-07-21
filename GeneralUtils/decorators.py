@@ -7,7 +7,8 @@ def handle_exceptions(function):
     def general_exception_message_event(*args, **kwargs):
         try:
             return function(*args, **kwargs)
-        except (AttributeError, IndexError) as e:
-            error_response ={'error': str(e)}
+        except Exception as e:
+            error_response = {'error': str(e)}
             return jsonify(error_response), 500
+
     return general_exception_message_event
