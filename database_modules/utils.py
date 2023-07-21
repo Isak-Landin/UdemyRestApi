@@ -15,7 +15,7 @@ def get_count_in_dict(decoded_dict: dict):
 
 @handle_exceptions
 def get_data_in_dict(decoded_dict: dict):
-    data = decoded_dict.get('data')
+    data = decoded_dict.get('data', [])
     return data[0] or {}
 
 
