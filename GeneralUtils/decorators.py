@@ -3,7 +3,7 @@ from flask import jsonify
 from flask import Response
 
 
-def handle_exceptions(function):
+def reformatting(function):
     @wraps(function)
     def general_exception_message_event(*args, **kwargs):
         try:
