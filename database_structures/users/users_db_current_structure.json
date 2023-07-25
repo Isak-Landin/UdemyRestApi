@@ -36,7 +36,7 @@
       "static": false
     },
     {
-      "name": "salt",
+      "name": "token_salt",
       "typeDefinition": "text",
       "static": false
     },
