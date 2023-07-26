@@ -5,7 +5,7 @@
       "value": "test"
     },
     {
-      "name": "emailaddress",
+      "name": "email-address",
       "value": "test@gmail.com"
     },
     {
@@ -19,7 +19,7 @@
     },
 
     {
-      "name": "salt",
+      "name": "token-salt",
       "value": "{0}"
     },
 
@@ -29,12 +29,12 @@
     },
 
     {
-      "name": "createdat",
+      "name": "created-at",
       "value": 0
     },
 
     {
-      "name": "lastlogin",
+      "name": "last-login",
       "value": 0
     }
   ]
