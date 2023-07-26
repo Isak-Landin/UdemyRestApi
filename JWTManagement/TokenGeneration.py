@@ -2,7 +2,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token
 from typing import Tuple, Optional
 import requests
 
-from database_modules.get_user_api_connect import get_user_and_password
+from database_modules.users_table.get_user_api_connect import get_user_and_password
 from database_modules.utils import response_content_decoder, get_data_in_dict, get_count_in_dict
 
 import bcrypt
@@ -48,7 +48,8 @@ class Tokens:
     def generate_token_pair(username: str = None,
                             password: str = None,
                             received_access_token: str = None,
-                            received_refresh_token: str = None) -> Optional[Tuple[str, str]]:
+                            received_refresh_token: str = None,
+                            token_salt=None) -> Optional[Tuple[str, str]]:
         if username and password:
             if Tokens.validate_user_login(username, password):
                 access_token = create_access_token(identity=username)
@@ -57,3 +58,13 @@ class Tokens:
         elif not username and not password and received_access_token and received_refresh_token:
             # Future code here
             pass
+
+
+    @staticmethod
+    def create_new_token_salt():
+        pass
+
+
+    @staticmethod
+    def store_new_token_salt():
+        pass
