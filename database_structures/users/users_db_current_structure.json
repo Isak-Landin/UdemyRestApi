@@ -7,7 +7,7 @@
   },
   "columnDefinitions": [
     {
-      "name": "emailaddress",
+      "name": "email-address",
       "typeDefinition": "text",
       "static": false
     },
@@ -36,18 +36,18 @@
       "static": false
     },
     {
-      "name": "token_salt",
+      "name": "token-salt",
       "typeDefinition": "text",
       "static": false
     },
 
     {
-      "name": "createdat",
+      "name": "created-at",
       "typeDefinition": "timestamp",
       "static": false
     },
     {
-      "name": "lastlogin",
+      "name": "last-login",
       "typeDefinition": "timestamp",
       "static": false
     }
