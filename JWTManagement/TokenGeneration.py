@@ -3,7 +3,7 @@ from typing import Tuple, Optional
 import requests
 
 from database_modules.get_user_api_connect import get_user_and_password
-from database_modules.utils import response_decoder, get_data_in_dict, get_count_in_dict
+from database_modules.utils import response_content_decoder, get_data_in_dict, get_count_in_dict
 
 import bcrypt
 
@@ -12,14 +12,14 @@ class Tokens:
     @staticmethod
     def _is_user_exist_in_response_internal(get_user_response: requests.Response) -> bool:
         if get_user_response:
-            content_decoded = response_decoder(get_user_response)
+            content_decoded = response_content_decoder(get_user_response)
             count = get_count_in_dict(content_decoded)
             return count > 0
         return False
 
     @staticmethod
     def _is_correct_password_internal(input_username: str, input_password: str, response: requests.Response) -> bool:
-        decoded_response = response_decoder(response=response)
+        decoded_response = response_content_decoder(response=response)
         decoded_data = get_data_in_dict(decoded_response)
 
         def _strip_field_internal(field):
