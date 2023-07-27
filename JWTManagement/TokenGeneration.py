@@ -4,6 +4,7 @@ import requests
 
 from database_modules.users_table.get_user_api_connect import get_user_and_password
 from database_modules.utils import response_content_decoder, get_data_in_dict, get_count_in_dict
+from database_modules.users_table.update_user_salt import update_salt
 
 import bcrypt
 
@@ -62,9 +63,9 @@ class Tokens:
 
     @staticmethod
     def create_new_token_salt():
-        pass
+        return bcrypt.gensalt()
 
 
     @staticmethod
-    def store_new_token_salt():
-        pass
+    def store_new_token_salt(username, salt):
+        update_salt(username, salt).raise_for_status()
