@@ -11,6 +11,14 @@ def get_user_and_password(username):
     return requests.get(url, headers=admin_headers)
 
 
-def get_user(username):
+def get_user(username) -> requests.Response:
+    """
+    Retrieves the column username from the row that matches the parameter username as a primary key.
+    The row is embedded in a requests.Response
+
+    :param username:
+    :type: str:
+    :rtype: requests.Response
+    """
     url = f'https://{astra_id}-europe-west1.apps.astra.datastax.com/api/rest/v2/keyspaces/{keyspace}/{table_users}/{username}?fields=username'
     return requests.get(url, headers=admin_headers)
