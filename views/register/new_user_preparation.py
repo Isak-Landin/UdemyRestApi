@@ -3,6 +3,8 @@ import time
 import uuid
 from pathlib import Path
 
+import bcrypt
+
 from database_modules.users_table.update_user_salt import update_salt
 
 from GeneralUtils.decorators import standard_procedure
@@ -17,8 +19,7 @@ def create_template(username, email_address, password):
     with open(template_file, 'r') as file:
         content = file.read()
 
-    # Todo Dont forget to hash the password first, think through it.
-    return format_and_change_values(content, username, email_address, password, generate_user_id(username), create_new_salt(), created_at(), create_role())
+    return format_and_change_values(content, username, email_address, hash_plain_text_password(password), generate_user_id(username), create_new_token_salt(), created_at(), create_role())
 
 
 
@@ -28,8 +29,14 @@ def generate_user_id(username):
     return str(uuid.uuid5(uuid.NAMESPACE_URL, username))
 
 @standard_procedure
-def create_new_salt():
+def create_new_token_salt():
     return str(Tokens.create_new_token_salt())
+
+
+@standard_procedure
+def hash_plain_text_password(password):
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password, salt)
 
 @standard_procedure
 def created_at():
