@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from server_stability import ServerStatus
 
-from flask import Flask, abort
+from flask import Flask, abort, jsonify
 from JWTManagement.customized_jwt_manager import CustomJWTManager
 
 from views.auth.routes import auth_blueprint as auth_bp
@@ -20,6 +20,24 @@ def create_app():
 
 
 app = create_app()
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # create a response object
+    response = {
+        'error-message': 'There was a server error that prevented your request from executing as expected. The error has been logged and we are working on a fix this very moment.',
+        'direct-error': str(e)
+    }
+
+    # convert the response to JSON format
+    response = jsonify(response)
+
+    # set the status code to 500 (Internal Server Error)
+    response.status_code = 500
+
+    # return the response
+    return response
+
 
 jwt_manager = CustomJWTManager(app)
 
