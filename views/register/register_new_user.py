@@ -12,13 +12,18 @@ from views.register.new_user_preparation import create_template
 from GeneralUtils.decorators import standard_procedure
 
 
-def finalize_and_store_new_user() -> Response:
+def finalize_and_store_new_user(username, mail, password) -> Response:
     # sourcery skip: inline-immediately-returned-variable
     response = Response()
 
-
+    if perform_initial_checks(username, mail):
+        pass
     return response
 
+
+@standard_procedure
+def store_new_user(request_body):
+    pass
 
 @standard_procedure
 def perform_initial_checks(username, mail) -> bool:
