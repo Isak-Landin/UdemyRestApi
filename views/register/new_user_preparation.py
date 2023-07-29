@@ -22,21 +22,21 @@ def create_template(username, email_address, password):
     return format_and_change_values(content, username, email_address, hash_plain_text_password(password), generate_user_id(username), create_new_token_salt(), created_at(), create_role())
 
 
-
-
 @standard_procedure
 def generate_user_id(username):
     return str(uuid.uuid5(uuid.NAMESPACE_URL, username))
 
 @standard_procedure
 def create_new_token_salt():
-    return str(Tokens.create_new_token_salt())
+    return Tokens.create_new_token_salt().decode('utf-8')
 
 
 @standard_procedure
 def hash_plain_text_password(password):
     salt = bcrypt.gensalt()
-    return bcrypt.hashpw(password, salt)
+    if isinstance(password, str):
+        password = password.encode()
+    return bcrypt.hashpw(password, salt).decode('utf-8')
 
 @standard_procedure
 def created_at():
