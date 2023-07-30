@@ -2,18 +2,21 @@ import json
 import time
 import uuid
 from pathlib import Path
-
 import bcrypt
 
 from database_modules.users_table.update_user_salt import update_salt
-
 from GeneralUtils.decorators import standard_procedure
-
 from JWTManagement.TokenGeneration import Tokens
 
 
 @standard_procedure
-def create_template(username, email_address, password):
+def create_template(username: str, email_address: str, password: str):
+    """
+    :param username:
+    :param email_address:
+    :param password:
+    :rtype: dict:
+    """
     where_am_i = str(Path().resolve())
     template_file = f'{where_am_i}/database_structures/users/users_db_add_row.json'
     with open(template_file, 'r') as file:
