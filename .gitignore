@@ -153,6 +153,7 @@ general_testing.py
 
 .idea/
 App_Config/
+testing_request_to_new_url.py
 
 # PyCharm
 #  JetBrains specific template is maintainted in a separate JetBrains.gitignore that can
