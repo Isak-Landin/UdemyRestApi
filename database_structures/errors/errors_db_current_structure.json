@@ -1,0 +1,15 @@
+{
+  "name": "errors",
+  "primaryKey": {
+    "partitionKey": [
+      "email"
+    ]
+  },
+  "columnDefinitions": [
+    {
+      "name": "email",
+      "typeDefinition": "text",
+      "static": true
+    }
+  ]
+}
