@@ -52,6 +52,7 @@ def create_role(role=0):
 @standard_procedure
 def format_and_change_values(original_json, username, email, password, user_id, token_salt, created_at_param, role) -> dict:
     original_json = json.loads(original_json)
+    # pass
     column_list = original_json['columns']
     for column in column_list:
         match column['name']:
